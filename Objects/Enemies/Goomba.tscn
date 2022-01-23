@@ -8,10 +8,10 @@
 [ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 8, 6.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14, 2 )
+extents = Vector2( 8, 2 )
 
 [node name="Goomba" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 3 )
@@ -29,13 +29,15 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "walk"
+frame = 4
 playing = true
-offset = Vector2( 0, -16 )
+offset = Vector2( 0, -9 )
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( 0, -16 )
+position = Vector2( 0, -6.5 )
 shape = SubResource( 1 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
@@ -56,7 +58,6 @@ physics_process_parent = true
 visible = false
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
-position = Vector2( 0, 4 )
 shape = SubResource( 2 )
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]

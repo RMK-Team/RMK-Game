@@ -12,9 +12,9 @@ func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, te
   z_index = 3
 
   if accel.x < 0:
-    position.x -= 6
+    position.x -= 3
   else:
-    position.x += 6
+    position.x += 3
 
 func _process(delta) -> void:
   y_accel += 0.4 * Global.get_delta(delta)

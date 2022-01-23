@@ -95,7 +95,7 @@ func _ready():
   # Preview Sprite
   preview = Sprite.new()
   preview.name = 'Preview'
-  preview.scale = Vector2(0.5, 0.5)
+  preview.scale = Vector2(0.3, 0.3)
   preview.modulate.a = 0.8
   preview.position.x += 8
   preview.position.y -= 8
@@ -282,7 +282,7 @@ func _process_trigger(delta) -> void:
 func _on_hit():
   if qtype == BLOCK_TYPE.COMMON:
     Global.play_base_sound('MAIN_BrickBreak')
-    var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+    var speeds = [Vector2(1, -3), Vector2(1.5, -2), Vector2(-1, -3), Vector2(-1.5, -2)]
     for i in range(4):
       var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], debris)
       get_parent().add_child(debris_effect)

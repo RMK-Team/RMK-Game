@@ -19,7 +19,7 @@ func _process(delta) -> void:
   
   position -= Vector2(0, counter * Global.get_delta(delta)).rotated(rotation)
 
-  if frame == 21:
-    var score_text = ScoreText.new(200, first_pos)
+  if frame == 12:
+    var score_text = ScoreText.new(200, first_pos + Vector2(0, 16))
     get_parent().add_child(score_text)
     queue_free()

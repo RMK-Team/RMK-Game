@@ -18,7 +18,7 @@
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=16]
 [ext_resource path="res://Scripts/Menu/Menu.gd" type="Script" id=17]
 [ext_resource path="res://GFX/Menu/menu_bg.png" type="Texture" id=18]
-[ext_resource path="res://GFX/Menu/вав.png" type="Texture" id=19]
+[ext_resource path="res://GFX/unknown.png" type="Texture" id=19]
 [ext_resource path="res://GFX/Menu/options_bg.png" type="Texture" id=20]
 [ext_resource path="res://GFX/Menu/credits_bg.png" type="Texture" id=21]
 [ext_resource path="res://Scripts/Menu/OptionsWave.gd" type="Script" id=22]
@@ -464,6 +464,6 @@ stream = ExtResource( 11 )
 stream = ExtResource( 16 )
 
 [node name="Credits" type="Sprite" parent="."]
-position = Vector2( 315.5, 1706.62 )
-scale = Vector2( 19.2813, 10.4609 )
+position = Vector2( 269, 1795 )
+scale = Vector2( 1.63347, 1.06184 )
 texture = ExtResource( 19 )
