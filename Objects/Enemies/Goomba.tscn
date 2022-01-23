@@ -17,7 +17,7 @@ extents = Vector2( 8, 2 )
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
-"speed": 50.0
+"speed": 25.0
 }
 AI = ExtResource( 1 )
 can_freeze = true
@@ -29,7 +29,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "walk"
-frame = 4
 playing = true
 offset = Vector2( 0, -9 )
 flip_h = true

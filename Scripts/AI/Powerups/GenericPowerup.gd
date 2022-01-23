@@ -48,11 +48,11 @@ func _ai_process(delta: float) -> void:
         owner.turn()
   
   if !custom_appearing and not ('sgr behavior' in owner.vars and owner.vars['sgr behavior']):
-    if appearing and appear_counter < 32:
+    if appearing and appear_counter < 16:
       offset_pos -= Vector2(0, owner.vars['grow speed']).rotated(owner.rotation) * Global.get_delta(delta)
       appear_counter += owner.vars['grow speed'] * Global.get_delta(delta)
-    elif appear_counter >= 32 and appear_counter < 100:
-      offset_pos = Vector2(0, -32).rotated(owner.rotation)
+    elif appear_counter >= 16 and appear_counter < 100:
+      offset_pos = Vector2(0, -16).rotated(owner.rotation)
       owner.position = initial_pos + offset_pos
       appearing = false
       appear_counter = 100

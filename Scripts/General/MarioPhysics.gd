@@ -103,10 +103,13 @@ func _process(delta) -> void:
   #$Sprite.modulate.a = 0.5 if Global.debug_fly else 1
   
   $BottomDetector/CollisionBottom.position.y = 5 + velocity.y / 100 * Global.get_delta(delta)
+  
+  appear_logic(delta)
 
   if not dead:
     if not Global.debug_fly:
-      _process_alive(delta)
+      if not get_tree().paused:
+        _process_alive(delta)
     else:
       _process_debug_fly(delta)
   else:
@@ -385,6 +388,20 @@ func controls(delta) -> void:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('do_action'):
       ready_powerup_scripts[Global.state].do_action(self)
 
+func appear_logic(delta) -> void:
+  if appear_counter > 0:
+    get_tree().paused = true
+    if not allow_custom_animation:
+      if not $Sprite.animation == 'Appearing':
+        animate_sprite('Appearing')
+      $Sprite.speed_scale = 1
+      
+    appear_counter -= 1.5001 * Global.get_delta(delta)
+    if not shield_star: return
+  if appear_counter < 0:
+    get_tree().paused = false
+    appear_counter = 0
+
 func animate_default(delta) -> void:
   if selected_state != Global.state:
     selected_state = Global.state
@@ -403,21 +420,6 @@ func animate_default(delta) -> void:
 #  if Global.state > 0 and not position_altered:
 #    $Sprite.position.y -= 14
 #    position_altered = true
-
-  if appear_counter > 0:
-    if not allow_custom_animation:
-      if not $Sprite.animation == 'Appearing':
-        animate_sprite('Appearing')
-      $Sprite.speed_scale = 1
-      
-    appear_counter -= 1.5 * Global.get_delta(delta)
-    if not shield_star: return
-  if appear_counter < 0:
-#    if position_altered:
-#      $Sprite.position.y += 14
-#      position_altered = false
-    appear_counter = 0
-
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
     if appear_counter == 0 and not shield_star:
@@ -480,18 +482,20 @@ func animate_climbing(delta) -> void:
     $Sprite.flip_h = false
 
   if appear_counter > 0:
+    get_tree().paused = true
     if not allow_custom_animation:
       if not $Sprite.animation == 'Appearing':
         animate_sprite('Appearing')
       $Sprite.speed_scale = 1
       
-    appear_counter -= 1.5 * Global.get_delta(delta)
+    appear_counter -= 1.5001 * Global.get_delta(delta)
     return
   if appear_counter < 0:
 #    if position_altered:
 #      $Sprite.position.y += 14
 #      position_altered = false
     appear_counter = 0
+    get_tree().paused = false
 
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
