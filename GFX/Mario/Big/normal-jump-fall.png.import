@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Classic_Grass.png-1ef62539cfd59ffd04d62c389b70d760.stex"
+path="res://.import/normal-jump-fall.png-35eb4597a3246a336028c196413ab626.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Tilesets/Classic_Grass.png"
-dest_files=[ "res://.import/Classic_Grass.png-1ef62539cfd59ffd04d62c389b70d760.stex" ]
+source_file="res://GFX/Mario/Big/normal-jump-fall.png"
+dest_files=[ "res://.import/normal-jump-fall.png-35eb4597a3246a336028c196413ab626.stex" ]
 
 [params]
 

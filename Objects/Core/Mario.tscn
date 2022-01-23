@@ -91,37 +91,37 @@ shader = SubResource( 12 )
 shader_param/mixing = false
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 13 )
+extents = Vector2( 6, 7.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 28 )
+extents = Vector2( 6, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8, 12 )
+extents = Vector2( 5, 6.5 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 26 )
+extents = Vector2( 5, 13.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 10, 4 )
+extents = Vector2( 6, 4 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 7, 2 )
+extents = Vector2( 5, 2 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 7, 2 )
+extents = Vector2( 5, 2 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 1, 6 )
+extents = Vector2( 1, 4.5 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 1, 12 )
+extents = Vector2( 1, 8 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 1, 6 )
+extents = Vector2( 1, 4.5 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 1, 12 )
+extents = Vector2( 1, 8 )
 
 [node name="Mario" type="KinematicBody2D"]
 collision_layer = 2
@@ -150,7 +150,7 @@ current = true
 limit_left = 0
 limit_top = 0
 limit_right = 11000
-limit_bottom = 480
+limit_bottom = 224
 smoothing_speed = 8.0
 editor_draw_limits = true
 
@@ -172,16 +172,16 @@ frames = ExtResource( 1 )
 animation = "Stopped"
 playing = true
 centered = false
-offset = Vector2( -14, -31 )
+offset = Vector2( -16, -32 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -13 )
+position = Vector2( 0, -7.5 )
 shape = SubResource( 1 )
 
 [node name="CollisionBig" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -28 )
+position = Vector2( 0, -14.5 )
 shape = SubResource( 2 )
 
 [node name="InsideDetector" type="Area2D" parent="." groups=["Mario"]]
@@ -190,13 +190,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionSmall" type="CollisionShape2D" parent="InsideDetector"]
-visible = false
-position = Vector2( 0, -13 )
+position = Vector2( 0, -7.5 )
 shape = SubResource( 3 )
 
 [node name="CollisionBig" type="CollisionShape2D" parent="InsideDetector"]
-visible = false
-position = Vector2( 0, -28 )
+position = Vector2( 0, -14.5 )
 shape = SubResource( 4 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
@@ -219,11 +217,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
-position = Vector2( 0, -28 )
+position = Vector2( 0, -18 )
 shape = SubResource( 6 )
 
 [node name="CollisionTopBig" type="CollisionShape2D" parent="TopDetector"]
-position = Vector2( 0, -58 )
+position = Vector2( 0, -32 )
 shape = SubResource( 7 )
 
 [node name="SmallRightDetector" type="Area2D" parent="."]
@@ -232,11 +230,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionSmallRight" type="CollisionShape2D" parent="SmallRightDetector"]
-position = Vector2( 12, -14 )
+position = Vector2( 8, -12.5 )
 shape = SubResource( 8 )
 
 [node name="CollisionSmallRightBig" type="CollisionShape2D" parent="SmallRightDetector"]
-position = Vector2( 12, -23 )
+position = Vector2( 8, -19 )
 shape = SubResource( 9 )
 
 [node name="SmallLeftDetector" type="Area2D" parent="."]
@@ -245,11 +243,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionSmallLeft" type="CollisionShape2D" parent="SmallLeftDetector"]
-position = Vector2( -12, -14 )
+position = Vector2( -8, -12.5 )
 shape = SubResource( 10 )
 
 [node name="CollisionSmallLeftBig" type="CollisionShape2D" parent="SmallLeftDetector"]
-position = Vector2( -12, -23 )
+position = Vector2( -8, -19 )
 shape = SubResource( 11 )
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]

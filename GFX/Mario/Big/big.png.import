@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex"
+path="res://.import/big.png-856706e75a81e93b74dbc504fb866db4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Shell.png"
-dest_files=[ "res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex" ]
+source_file="res://GFX/Mario/Big/big.png"
+dest_files=[ "res://.import/big.png-856706e75a81e93b74dbc504fb866db4.stex" ]
 
 [params]
 

@@ -112,8 +112,8 @@ func _process(delta) -> void:
   else:
     _process_dead(delta)
 
-  if velocity.y > 500:
-    velocity.y = 500
+  if velocity.y > 250:
+    velocity.y = 250
 
   if jump_internal_counter < 100:
     jump_internal_counter += 1 * Global.get_delta(delta)
@@ -162,9 +162,9 @@ func _process_alive(delta) -> void:
   if controls_enabled:
     controls(delta)
   
-  if position.y > $Camera.limit_bottom + 64 and controls_enabled:
+  if position.y > $Camera.limit_bottom + 32 and controls_enabled:
     if get_parent().no_cliff:
-      position.y -= 550
+      position.y -= 260
     else:
       if !get_parent().sgr_scroll:
         Global._pll()
@@ -173,7 +173,7 @@ func _process_alive(delta) -> void:
         get_parent().get_node('StartWarp').counter = 61
       
   if position.y < $Camera.limit_top - 64 and controls_enabled and get_parent().no_cliff:
-    position.y += 570
+    position.y += 270
 
 #  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
 #    velocity.y = 1
@@ -231,13 +231,13 @@ func _process_dead(delta) -> void:
   $Sprite.set_animation('Dead')
   velocity.x = 0
   
-  velocity.y += 25 * Global.get_delta(delta)
+  velocity.y += 12.5 * Global.get_delta(delta)
 
   if dead_counter < 24:
     velocity.y = 0
   elif not dead_hasJumped:
     dead_hasJumped = true
-    velocity.y = -550
+    velocity.y = -275
     
   $Sprite.position += Vector2(0, velocity.y * delta)
 
@@ -267,20 +267,20 @@ func _process_dead(delta) -> void:
 func movement_default(delta) -> void:
   #if animation_enabled: animate_default(delta)
   
-  if velocity.y < 550 and not is_on_floor():
+  if velocity.y < 275 and not is_on_floor():
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
       if abs(velocity.x) < 1:
-        velocity.y -= 20 * Global.get_delta(delta)
+        velocity.y -= 10 * Global.get_delta(delta)
       else:
-        velocity.y -= 25 * Global.get_delta(delta)
-    velocity.y += 50 * Global.get_delta(delta)
+        velocity.y -= 12.5 * Global.get_delta(delta)
+    velocity.y += 25 * Global.get_delta(delta)
   
   if velocity.x > 0:
-    velocity.x -= 5 * Global.get_delta(delta)
+    velocity.x -= 2.5 * Global.get_delta(delta)
   if velocity.x < 0:
-    velocity.x += 5 * Global.get_delta(delta)
+    velocity.x += 2.5 * Global.get_delta(delta)
 
-  if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
+  if velocity.x > -5 * Global.get_delta(delta) and velocity.x < 5 * Global.get_delta(delta):
     velocity.x = 0
 
   if velocity.y > 0:
@@ -312,13 +312,13 @@ func movement_climbing(delta) -> void:
       movement_type = Movement.DEFAULT
       controls_enabled = true
     else:
-      velocity.y = 180
+      velocity.y = 90
   if Input.is_action_pressed('mario_up'):
-    velocity.y = -180
+    velocity.y = -90
   if Input.is_action_pressed('mario_left'):
-    velocity.x = -150
+    velocity.x = -75
   if Input.is_action_pressed('mario_right'):
-    velocity.x = 150
+    velocity.x = 75
   
   if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
     velocity.y = 0
@@ -340,7 +340,7 @@ func controls(delta) -> void:
 
   if jump_counter == 0 and can_jump:
     prelanding = false
-    velocity.y = -700 # 650
+    velocity.y = -350
     jump_counter = 1
     can_jump = false
     $BaseSounds/MAIN_Jump.play()
@@ -353,33 +353,33 @@ func controls(delta) -> void:
     crouch = true
     velocity.y = 1
     if velocity.x > 0:
-      velocity.x -= 5 * Global.get_delta(delta)
+      velocity.x -= 2.5 * Global.get_delta(delta)
     if velocity.x < 0:
-      velocity.x += 5 * Global.get_delta(delta)
+      velocity.x += 2.5 * Global.get_delta(delta)
   else:
     crouch = false
   if not Input.is_action_pressed('mario_crouch'):
     crouch = false
 
   if Input.is_action_pressed('mario_right') and not crouch:
-    if velocity.x > -20 and velocity.x < 20:
-      velocity.x = 40
-    elif velocity.x <= -20:
-      velocity.x += 20 * Global.get_delta(delta)
-    elif velocity.x < 175 and not Input.is_action_pressed('mario_fire'):
-      velocity.x += 12.5 * Global.get_delta(delta)
-    elif velocity.x < 350 and Input.is_action_pressed('mario_fire'):
-      velocity.x += 12.5 * Global.get_delta(delta)
+    if velocity.x > -10 and velocity.x < 10:
+      velocity.x = 20
+    elif velocity.x <= -10:
+      velocity.x += 10 * Global.get_delta(delta)
+    elif velocity.x < 87.5 and not Input.is_action_pressed('mario_fire'):
+      velocity.x += 6.25 * Global.get_delta(delta)
+    elif velocity.x < 175 and Input.is_action_pressed('mario_fire'):
+      velocity.x += 6.25 * Global.get_delta(delta)
 
   if Input.is_action_pressed('mario_left') and not crouch:
-    if velocity.x > -20 and velocity.x < 20:
-      velocity.x = -40
-    elif velocity.x >= 20:
-      velocity.x -= 20 * Global.get_delta(delta)
-    elif velocity.x > -175 and not Input.is_action_pressed('mario_fire'):
-      velocity.x -= 12.5 * Global.get_delta(delta)
-    elif velocity.x > -350 and Input.is_action_pressed('mario_fire'):
-      velocity.x -= 12.5 * Global.get_delta(delta)
+    if velocity.x > -10 and velocity.x < 10:
+      velocity.x = -20
+    elif velocity.x >= 10:
+      velocity.x -= 10 * Global.get_delta(delta)
+    elif velocity.x > -87.5 and not Input.is_action_pressed('mario_fire'):
+      velocity.x -= 6.25 * Global.get_delta(delta)
+    elif velocity.x > -175 and Input.is_action_pressed('mario_fire'):
+      velocity.x -= 6.25 * Global.get_delta(delta)
 
   if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('do_action'):
@@ -395,9 +395,9 @@ func animate_default(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
 
-  if velocity.x <= -8 * Global.get_delta(delta):
+  if velocity.x <= -4 * Global.get_delta(delta):
     $Sprite.flip_h = true
-  if velocity.x >= 8 * Global.get_delta(delta):
+  if velocity.x >= 4 * Global.get_delta(delta):
     $Sprite.flip_h = false
     
 #  if Global.state > 0 and not position_altered:
@@ -442,8 +442,11 @@ func animate_default(delta) -> void:
       animate_sprite('Stopped')
     return
 
-  if not is_on_floor() and not is_over_platform() and abs(velocity.y) > 2:
-    animate_sprite('Jumping')
+  if not is_on_floor() and not is_over_platform():
+    if velocity.y < 0:
+      animate_sprite('Jumping')
+    else:
+      animate_sprite('Falling')
   elif abs(velocity.x) < 0.08 and is_on_floor():
     animate_sprite('Stopped')
 
@@ -456,7 +459,7 @@ func animate_default(delta) -> void:
       animate_sprite('Walking')
 
   if $Sprite.animation == 'Walking':
-    $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
+    $Sprite.speed_scale = abs(velocity.x / 25) * 2.5 + 4
 
 func animate_swimming(delta) -> void:
   pass # TODO
@@ -589,17 +592,17 @@ func _process_camera(delta: float) -> void:
   if dead: return
   
   if sections_scroll:
-    var base_y = floor((position.y + 240) / 960) * 960
+    var base_y = floor((position.y + 112) / 448) * 448
     $Camera.limit_top = base_y
-    $Camera.limit_bottom = base_y + 480
+    $Camera.limit_bottom = base_y + 224
   
   if inited_camera_addon and inited_camera_addon.has_method('_process_camera'):
     inited_camera_addon._process_camera(self, delta)
   
   if get_parent().sgr_scroll:
-    var base_x = floor(position.x / 640) * 640
+    var base_x = floor(position.x / 384) * 384
     $Camera.limit_left = base_x
-    $Camera.limit_right = base_x + 640
+    $Camera.limit_right = base_x + 384
     
 func _physics_process(_delta: float) -> void:
   if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):

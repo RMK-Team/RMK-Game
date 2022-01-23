@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex"
+path="res://.import/normal-jump-fall.png-0e8caefa136193efbc4a0e29672c0f71.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Shell.png"
-dest_files=[ "res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex" ]
+source_file="res://GFX/Mario/Small/normal-jump-fall.png"
+dest_files=[ "res://.import/normal-jump-fall.png-0e8caefa136193efbc4a0e29672c0f71.stex" ]
 
 [params]
 

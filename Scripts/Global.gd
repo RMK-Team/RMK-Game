@@ -233,7 +233,7 @@ func _ppd() -> void: # Player Powerdown
   if state == 0:
     _pll()
   else:
-    play_base_sound('MAIN_Pipe')
+    play_base_sound('MAIN_Shrink')
     if state > 1:
       state = 1
     else:

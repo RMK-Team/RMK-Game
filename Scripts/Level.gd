@@ -74,7 +74,7 @@ func setup_tilemap() -> TileMap:
   newTM.set_name('TileMap')
   newTM.set_collision_layer_bit(1, true)
   newTM.set_collision_mask_bit(1, true)
-  newTM.set_cell_size(Vector2(32, 32))
+  newTM.set_cell_size(Vector2(16, 16))
   newTM.add_to_group('Solid', true)
   newTM.set_cell(1, 13, 0)
   newTM.update_bitmask_area(Vector2(1, 13))
