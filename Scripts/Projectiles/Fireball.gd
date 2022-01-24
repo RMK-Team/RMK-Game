@@ -51,6 +51,7 @@ func _process(delta) -> void:
     explode()
   
   #$Sprite.rotation_degrees += 12 * (-1 if velocity.x < 0 else 1) * Global.get_delta(delta)
+  $AnimatedSprite.flip_h = velocity.x < 0
   
 func is_mario_collide(_detector_name: String) -> bool:
   var collisions = Global.Mario.get_node(_detector_name).get_overlapping_bodies()
