@@ -412,9 +412,9 @@ func animate_default(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
 
-  if velocity.x <= -4 * Global.get_delta(delta):
+  if velocity.x <= -4 * Global.get_delta(delta) and is_on_floor():
     $Sprite.flip_h = true
-  if velocity.x >= 4 * Global.get_delta(delta):
+  if velocity.x >= 4 * Global.get_delta(delta) and is_on_floor():
     $Sprite.flip_h = false
     
 #  if Global.state > 0 and not position_altered:
