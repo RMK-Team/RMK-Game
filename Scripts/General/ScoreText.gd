@@ -2,12 +2,13 @@ extends Sprite
 class_name ScoreText
 
 var counter = 0
-var icounter = 120
+var move_to_y
 
 func _init(score: int, pos: Vector2 = Vector2.ZERO):
   texture = preload('res://GFX/Texts/Score.png')
   position = pos
-  position.y -= 8
+  position.y -= 16
+  move_to_y = pos.y - 48
   vframes = 10
   z_index = 50
   match score:
@@ -37,7 +38,8 @@ func _init(score: int, pos: Vector2 = Vector2.ZERO):
 
 func _process(delta) -> void:
   counter += 1 * Global.get_delta(delta)
-  if counter < 36:
-    position.y -= 1 * Global.get_delta(delta)
-  if counter > icounter:
+  position.y += (move_to_y - position.y) * 0.075 * Global.get_delta(delta)
+  #if counter < 36:
+  #  position.y -= 1 * Global.get_delta(delta)
+  if counter > 100:
     queue_free()

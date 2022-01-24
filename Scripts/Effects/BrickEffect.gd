@@ -17,7 +17,7 @@ func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, te
     position.x += 3
 
 func _process(delta) -> void:
-  y_accel += 0.4 * Global.get_delta(delta)
+  y_accel += 0.2 * Global.get_delta(delta)
   position.x += accel.x * Global.get_delta(delta)
   position.y += (accel.y + y_accel) * Global.get_delta(delta)
 

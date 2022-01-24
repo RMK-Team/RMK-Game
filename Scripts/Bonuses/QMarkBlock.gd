@@ -124,9 +124,9 @@ func editor() -> void:
       body.animation = 'brick'
 
 
-  if (Result != null || PrevResult != null) && Result != PrevResult:
+  if (Result != null || PrevResult != null) && Result != PrevResult && preview != null:
     preview.texture = set_preview()
-    
+  
   if body:
     body.modulate.a = 0.5 if Visible != VISIBILITY_TYPE.VISIBLE else 1.0
 
@@ -146,7 +146,7 @@ func set_preview() -> StreamTexture:
   
   res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default' if not 'type' in result_inst else sprite.animation, 0) if sprite is AnimatedSprite else null
   
-  preview.scale = Vector2(16,16) / res.get_size()
+  preview.scale = Vector2(8,8) / res.get_size()
   PrevResult = Result
   #print(res)
   #print(Result)
@@ -180,7 +180,7 @@ func _physics_process(_delta) -> void:
   if preview:
     preview.visible = Engine.editor_hint || !Global.debug
   
-  if 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
+  if 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult && preview != null:
     preview.texture = set_preview()
   
   if Frames != null && Frames != PrevFrames:
@@ -203,9 +203,9 @@ func _process_active(delta) -> void:
 
 func brick_break(idle_frame:bool = true) -> void:
   Global.play_base_sound('MAIN_BrickBreak')
-  var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+  var speeds = [Vector2(1, -4), Vector2(2, -3), Vector2(-1, -4), Vector2(-2, -3)]
   for i in range(4):
-    var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], debris)
+    var debris_effect = BrickEffect.new(position + Vector2(0, -8), speeds[i], debris)
     get_parent().add_child(debris_effect)
   Global.add_score(50)
   $Body.visible = false
