@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -111,18 +111,6 @@ extents = Vector2( 5, 2 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 5, 2 )
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 1, 4.5 )
-
-[sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 1, 8 )
-
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 1, 4.5 )
-
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 1, 8 )
-
 [node name="Mario" type="KinematicBody2D"]
 pause_mode = 2
 collision_layer = 2
@@ -223,31 +211,5 @@ shape = SubResource( 6 )
 [node name="CollisionTopBig" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -32 )
 shape = SubResource( 7 )
-
-[node name="SmallRightDetector" type="Area2D" parent="."]
-visible = false
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionSmallRight" type="CollisionShape2D" parent="SmallRightDetector"]
-position = Vector2( 8, -12.5 )
-shape = SubResource( 8 )
-
-[node name="CollisionSmallRightBig" type="CollisionShape2D" parent="SmallRightDetector"]
-position = Vector2( 8, -19 )
-shape = SubResource( 9 )
-
-[node name="SmallLeftDetector" type="Area2D" parent="."]
-visible = false
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionSmallLeft" type="CollisionShape2D" parent="SmallLeftDetector"]
-position = Vector2( -8, -12.5 )
-shape = SubResource( 10 )
-
-[node name="CollisionSmallLeftBig" type="CollisionShape2D" parent="SmallLeftDetector"]
-position = Vector2( -8, -19 )
-shape = SubResource( 11 )
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]

@@ -273,9 +273,11 @@ func movement_default(delta) -> void:
   if velocity.y < 275 and not is_on_floor():
     if Input.is_action_pressed('mario_jump') and velocity.y < 0:
       if abs(velocity.x) < 1:
-        velocity.y -= 10 * Global.get_delta(delta)
-      else:
+        velocity.y -= 9.75 * Global.get_delta(delta)
+      elif abs(velocity.x) >= 135 and not crouch:
         velocity.y -= 12.5 * Global.get_delta(delta)
+      else:
+        velocity.y -= 11 * Global.get_delta(delta)
     velocity.y += 25 * Global.get_delta(delta)
   
   if velocity.x > 0:
@@ -442,7 +444,7 @@ func animate_default(delta) -> void:
       animate_sprite('Stopped')
     return
 
-  if not is_on_floor() and not is_over_platform() and not crouch:
+  if not is_on_floor() and not is_over_platform():
     if velocity.y < 0:
       animate_sprite('Jumping')
     else:
@@ -521,14 +523,10 @@ func update_collisions() -> void:
   $Collision.disabled = not (Global.state == 0 or crouch)
   $TopDetector/CollisionTop.disabled = not (Global.state == 0 or crouch)
   $InsideDetector/CollisionSmall.disabled = not (Global.state == 0 or crouch)
-  $SmallRightDetector/CollisionSmallRight.disabled = not (Global.state == 0 or crouch)
-  $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
   
   $CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
   $InsideDetector/CollisionBig.disabled = not (Global.state > 0 and not crouch)
-  $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
-  $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
 
 func kill() -> void:
   dead = true
