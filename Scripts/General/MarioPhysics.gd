@@ -271,7 +271,7 @@ func movement_default(delta) -> void:
   #if animation_enabled: animate_default(delta)
   
   if velocity.y < 275 and not is_on_floor():
-    if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
+    if Input.is_action_pressed('mario_jump') and velocity.y < 0:
       if abs(velocity.x) < 1:
         velocity.y -= 10 * Global.get_delta(delta)
       else:
@@ -336,7 +336,7 @@ func is_over_vine() -> bool:
   return false
 
 func controls(delta) -> void:
-  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and not crouch:
+  if Input.is_action_just_pressed('mario_jump'):
     can_jump = true
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false
@@ -354,17 +354,15 @@ func controls(delta) -> void:
 
   if Input.is_action_pressed('mario_crouch') and is_on_floor() and Global.state > 0:
     crouch = true
-    velocity.y = 1
+    #velocity.y = 1
     if velocity.x > 0:
       velocity.x -= 2.5 * Global.get_delta(delta)
     if velocity.x < 0:
       velocity.x += 2.5 * Global.get_delta(delta)
-  else:
-    crouch = false
-  if not Input.is_action_pressed('mario_crouch'):
+  if not Input.is_action_pressed('mario_crouch') and is_on_floor() and not is_over_backdrop($TopDetector, false):
     crouch = false
 
-  if Input.is_action_pressed('mario_right') and not crouch:
+  if Input.is_action_pressed('mario_right') and ((crouch && !is_on_floor()) || !crouch):
     if velocity.x > -10 and velocity.x < 10:
       velocity.x = 20
     elif velocity.x <= -10:
@@ -374,7 +372,7 @@ func controls(delta) -> void:
     elif velocity.x < 175 and Input.is_action_pressed('mario_fire'):
       velocity.x += 6.25 * Global.get_delta(delta)
 
-  if Input.is_action_pressed('mario_left') and not crouch:
+  if Input.is_action_pressed('mario_left') and ((crouch && !is_on_floor()) || !crouch):
     if velocity.x > -10 and velocity.x < 10:
       velocity.x = -20
     elif velocity.x >= 10:
@@ -444,7 +442,7 @@ func animate_default(delta) -> void:
       animate_sprite('Stopped')
     return
 
-  if not is_on_floor() and not is_over_platform():
+  if not is_on_floor() and not is_over_platform() and not crouch:
     if velocity.y < 0:
       animate_sprite('Jumping')
     else:
