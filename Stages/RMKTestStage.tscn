@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://default_env.tres" type="Environment" id=1]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=19]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Objects/Bonuses/Powerups/Fire Flower.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Objects/Enemies/Koopas/Koopa.tscn" type="PackedScene" id=22]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 19 )
@@ -127,22 +128,44 @@ position = Vector2( 48, 128 )
 qtype = 1
 
 [node name="Goomba" parent="." instance=ExtResource( 20 )]
-position = Vector2( 152, 192 )
+position = Vector2( 256, 192 )
 vars = {
 "bounce": 9.0,
-"speed": 50.0
+"speed": 30.0
 }
 
 [node name="Goomba2" parent="." instance=ExtResource( 20 )]
 position = Vector2( 304, 192 )
 vars = {
 "bounce": 9.0,
-"speed": 50.0
+"speed": 30.0
 }
 
 [node name="Goomba3" parent="." instance=ExtResource( 20 )]
 position = Vector2( 280, 192 )
 vars = {
 "bounce": 9.0,
-"speed": 50.0
+"speed": 30.0
+}
+
+[node name="Koopa" parent="." instance=ExtResource( 22 )]
+position = Vector2( 360, 192 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 125.0,
+"speed": 30.0,
+"stopped": false
+}
+
+[node name="Koopa2" parent="." instance=ExtResource( 22 )]
+position = Vector2( 224, 192 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 125.0,
+"speed": 30.0,
+"stopped": false
 }

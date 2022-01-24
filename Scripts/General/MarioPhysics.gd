@@ -435,6 +435,7 @@ func animate_default(delta) -> void:
   if launch_counter > 0:
     animate_sprite('Launching')
     launch_counter -= 1.01 * Global.get_delta(delta)
+    $Sprite.speed_scale = 1
     return
 
   if crouch:

@@ -1,13 +1,41 @@
-[gd_resource type="SpriteFrames" load_steps=20 format=2]
+[gd_resource type="SpriteFrames" load_steps=23 format=2]
 
 [ext_resource path="res://GFX/Mario/Fire/FireMario.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Mario/Small/appear.png" type="Texture" id=2]
-[ext_resource path="res://GFX/Mario/FlowerLaunch.png" type="Texture" id=5]
+[ext_resource path="res://GFX/Mario/Fire/shoot.png" type="Texture" id=3]
 [ext_resource path="res://GFX/Mario/FlowerClimb.png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 66, 198, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
 region = Rect2( 33, 396, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 31, 60 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
+region = Rect2( 31, 0, 31, 60 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 33, 33 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
@@ -33,53 +61,27 @@ region = Rect2( 132, 132, 33, 33 )
 atlas = ExtResource( 1 )
 region = Rect2( 165, 132, 33, 33 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 31, 60 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 6 )
-region = Rect2( 31, 0, 31, 60 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 1 )
-region = Rect2( 66, 198, 33, 33 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 33, 33 )
-
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 66, 33, 33 )
 
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 64, 32, 32 )
+
 [resource]
 animations = [ {
-"frames": [ SubResource( 11 ) ],
+"frames": [ SubResource( 20 ) ],
 "loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
-"loop": true,
-"name": "Walking",
-"speed": 1.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "Climbing",
+"name": "Falling",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
@@ -87,9 +89,14 @@ animations = [ {
 "name": "Appearing",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 20 ) ],
+"frames": [ SubResource( 11 ) ],
 "loop": true,
-"name": "Falling",
+"name": "Jumping",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "Climbing",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 18 ) ],
@@ -97,13 +104,18 @@ animations = [ {
 "name": "Stopped",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "Walking",
+"speed": 1.0
+}, {
 "frames": [ SubResource( 19 ) ],
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 16 ) ],
+"loop": false,
 "name": "Launching",
-"speed": 5.0
+"speed": 30.0
 } ]

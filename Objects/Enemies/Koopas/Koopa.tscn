@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://GFX/Enemies/Koopa.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
@@ -9,64 +9,96 @@
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=7]
 [ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=8]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 47 )
+region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 47 )
+region = Rect2( 32, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 33, 47 )
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 4 )
-region = Rect2( 33, 0, 33, 47 )
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 4 )
-region = Rect2( 66, 0, 33, 47 )
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 4 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 4 )
+region = Rect2( 112, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
 "name": "default",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "shell moving",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 27 ) ],
+"loop": true,
+"name": "shell stopped",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "shell moving",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 8 ) ],
-"loop": true,
-"name": "shell stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 16, 32 )
@@ -75,7 +107,7 @@ extents = Vector2( 16, 32 )
 extents = Vector2( 14, 2 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 23, 23 )
+extents = Vector2( 15, 15 )
 
 [node name="Koopa" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
@@ -83,8 +115,8 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
+"shell speed": 125.0,
+"speed": 30.0,
 "stopped": false
 }
 AI = ExtResource( 6 )
@@ -95,16 +127,14 @@ animated_sprite_pth = NodePath("Sprite")
 frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -8 )
 frames = SubResource( 9 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -16 )
+position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
 [node name="Collision2" type="CollisionShape2D" parent="."]
@@ -138,7 +168,7 @@ visible = false
 show_behind_parent = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -8 )
 shape = SubResource( 10 )
 disabled = true
 

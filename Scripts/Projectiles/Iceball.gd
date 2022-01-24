@@ -3,7 +3,7 @@ extends KinematicBody2D
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
 var dir: int = 1
-var velocity: Vector2 = Vector2(426, 0)
+var velocity: Vector2 = Vector2(130, 0)
 var skip_frame: bool = false
 var gravity_scale: float = 1
 
@@ -38,11 +38,11 @@ func _process(delta) -> void:
 
   if is_on_floor() and belongs != 1:
     counter += 1
-    velocity.y = -350
+    velocity.y = -175
     if counter > 2:
       explode()
 
-  velocity.y += 24 * gravity_scale * Global.get_delta(delta)
+  velocity.y += 8 * gravity_scale * Global.get_delta(delta)
 
   if belongs != 1:
     velocity = move_and_slide(velocity, Vector2.UP)
@@ -52,7 +52,7 @@ func _process(delta) -> void:
   if (is_on_wall() or velocity.x == 0) and belongs != 1:
     explode()
   
-  $Sprite.rotation_degrees += 12 * (-1 if velocity.x < 0 else 1) * Global.get_delta(delta)
+  #$Sprite.rotation_degrees += 12 * (-1 if velocity.x < 0 else 1) * Global.get_delta(delta)
   
 func is_mario_collide(_detector_name: String) -> bool:
   var collisions = Global.Mario.get_node(_detector_name).get_overlapping_bodies()

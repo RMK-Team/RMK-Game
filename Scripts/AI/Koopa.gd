@@ -35,7 +35,7 @@ func _ai_process(delta: float) -> void:
       owner.frozen_sprite.position.y = -32
     return
   
-  if owner.is_on_wall():
+  if owner.is_on_wall(): #and ((owner.vars['is shell'] && owner.vars['stopped']) || !owner.vars['is shell']):
     owner.turn()
 
   if shell_counter < 41:
@@ -48,18 +48,18 @@ func _ai_process(delta: float) -> void:
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
+        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 25
       else:
-        Global.Mario.velocity.y = -owner.vars['bounce'] * 50
+        Global.Mario.velocity.y = -owner.vars['bounce'] * 25
     elif owner.vars['is shell'] && !owner.vars['stopped']: #Stops the shell
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
       to_stopped_shell()
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
+        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 25
       else:
-        Global.Mario.velocity.y = -owner.vars['bounce'] * 50
+        Global.Mario.velocity.y = -owner.vars['bounce'] * 25
   elif is_mario_collide('InsideDetector') and !owner.vars['stopped'] and shell_counter >= 31:
     Global._ppd()
     
@@ -81,12 +81,14 @@ func to_stopped_shell() -> void:
   score_mp = 0
   owner.vars['stopped'] = true
   owner.animated_sprite.animation = 'shell stopped'
+  owner.animated_sprite.offset.y = -8
 
 func to_moving_shell() -> void:
   owner.vars['is shell'] = true
   owner.vars['stopped'] = false
   owner.animated_sprite.animation = 'shell moving'
   shell_counter = 0
+  owner.animated_sprite.offset.y = -8
 
 func _on_kill_zone_enter(b:Node) -> void:
   if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
