@@ -455,12 +455,15 @@ func animate_default(delta) -> void:
     return
 
   if not is_on_floor() and not is_over_platform():
-    if velocity.y < 0:
+    if velocity.y < 0.08:
       animate_sprite('Jumping')
     else:
       animate_sprite('Falling')
   elif abs(velocity.x) < 0.08 and is_on_floor():
-    animate_sprite('Stopped')
+    if Input.is_action_pressed('mario_up'):
+      animate_sprite('LookUp')
+    else:
+      animate_sprite('Stopped')
 
   if $Sprite.animation == 'Walking':
     $Sprite.speed_scale = abs(velocity.x / 25) * 2.5 + 4

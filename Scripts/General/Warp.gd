@@ -59,7 +59,7 @@ func _ready() -> void:
     out_node = self
     counter = 61
     if Global.state > 0:
-      Global.Mario.animate_sprite('Crouching')
+      Global.Mario.animate_sprite('Warp')
 
 func _process(delta) -> void:
   if Engine.editor_hint:
@@ -77,7 +77,7 @@ func _process(delta) -> void:
         active = true
         Global.play_base_sound('MAIN_Pipe')
         warp_dir.y = 1
-        Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
+        Global.Mario.animate_sprite('Warp' if Global.state > 0 else 'Stopped')
       elif direction == DIRS.UP and Input.is_action_pressed('mario_up'):
         calc_pos = Vector2(position.x, position.y + 16 + (30 if Global.state != 0 else 0))
         active = true
@@ -122,7 +122,7 @@ func _process(delta) -> void:
             Global.Mario.crouch = true
             calc_pos = Vector2(out_node.position.x, out_node.position.y + 44)
             warp_dir.y = -1
-            Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
+            Global.Mario.animate_sprite('Warp' if Global.state > 0 else 'Stopped')
           elif out_node.direction == DIRS.RIGHT:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 16)
