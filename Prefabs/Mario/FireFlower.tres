@@ -248,7 +248,7 @@ animations = [ {
 "frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
 "loop": true,
 "name": "Running",
-"speed": 1.0
+"speed": 0.8
 }, {
 "frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,

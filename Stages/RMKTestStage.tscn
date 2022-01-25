@@ -30,7 +30,7 @@ script = ExtResource( 19 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 1 )
 
-[node name="TileMap" type="TileMap" parent="." groups=["Solid"]]
+[node name="Jaded" type="TileMap" parent="." groups=["Solid"]]
 tile_set = ExtResource( 7 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 3
@@ -73,6 +73,18 @@ position = Vector2( 192, 120 )
 [node name="Coin4" parent="." instance=ExtResource( 17 )]
 position = Vector2( 208, 120 )
 
+[node name="Coin11" parent="." instance=ExtResource( 17 )]
+position = Vector2( 888, 72 )
+
+[node name="Coin12" parent="." instance=ExtResource( 17 )]
+position = Vector2( 904, 72 )
+
+[node name="Coin13" parent="." instance=ExtResource( 17 )]
+position = Vector2( 920, 72 )
+
+[node name="Coin14" parent="." instance=ExtResource( 17 )]
+position = Vector2( 936, 72 )
+
 [node name="Coin5" parent="." instance=ExtResource( 17 )]
 position = Vector2( 640, 64 )
 
@@ -96,7 +108,7 @@ position = Vector2( 144, 128 )
 Result = ExtResource( 17 )
 
 [node name="QBlock4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 144, 128 )
+position = Vector2( 240, 128 )
 Result = ExtResource( 17 )
 
 [node name="QBlock2" parent="." instance=ExtResource( 4 )]

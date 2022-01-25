@@ -465,7 +465,7 @@ func animate_default(delta) -> void:
     else:
       animate_sprite('Stopped')
 
-  if $Sprite.animation == 'Walking':
+  if $Sprite.animation == 'Walking' or $Sprite.animation == 'Running':
     $Sprite.speed_scale = abs(velocity.x / 25) * 2.5 + 4
   else:
     $Sprite.speed_scale = 1
@@ -480,7 +480,11 @@ func animate_default(delta) -> void:
   elif velocity.x >= 100 and $Sprite.flip_h:
     $Sprite.speed_scale = 1
     skid = true
-
+  
+  if abs(velocity.x) > 130:
+    animate_sprite('Skid' if skid else 'Running')
+    return
+  
   if velocity.x <= -0.16 * Global.get_delta(delta):
     animate_sprite('Skid' if skid else 'Walking')
   if velocity.x >= 0.16 * Global.get_delta(delta):
