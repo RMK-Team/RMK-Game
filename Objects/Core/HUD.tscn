@@ -195,19 +195,19 @@ script = ExtResource( 4 )
 
 [node name="TimeSprite" type="AnimatedSprite" parent="."]
 light_mask = 0
-position = Vector2( 561, 24 )
+position = Vector2( 561, -40 )
 frames = SubResource( 38 )
 
 [node name="Player" type="Sprite" parent="."]
 light_mask = 0
-position = Vector2( 97, 24 )
+position = Vector2( 97, -40 )
 texture = ExtResource( 2 )
 
 [node name="CoinsSprite" type="AnimatedSprite" parent="."]
 light_mask = 0
-position = Vector2( 256, 43 )
+position = Vector2( 256, -21 )
 frames = SubResource( 42 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
@@ -231,9 +231,9 @@ texture = ExtResource( 11 )
 [node name="Lives" type="Label" parent="."]
 light_mask = 0
 margin_left = 150.0
-margin_top = 13.0
+margin_top = -51.0
 margin_right = 166.0
-margin_bottom = 35.0
+margin_bottom = -29.0
 rect_pivot_offset = Vector2( 8, 8 )
 custom_fonts/font = ExtResource( 7 )
 text = "3"
@@ -244,9 +244,9 @@ __meta__ = {
 [node name="Score" type="Label" parent="."]
 light_mask = 0
 margin_left = 149.0
-margin_top = 32.0
+margin_top = -32.0
 margin_right = 165.0
-margin_bottom = 54.0
+margin_bottom = -10.0
 grow_horizontal = 0
 rect_pivot_offset = Vector2( 8, 8 )
 custom_fonts/font = ExtResource( 7 )
@@ -256,11 +256,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HP" type="Label" parent="."]
+light_mask = 0
+margin_right = 16.0
+margin_bottom = 22.0
+grow_horizontal = 0
+rect_pivot_offset = Vector2( 8, 8 )
+custom_fonts/font = ExtResource( 7 )
+text = "3"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Coins" type="Label" parent="."]
 margin_left = 273.0
-margin_top = 32.0
+margin_top = -32.0
 margin_right = 305.0
-margin_bottom = 54.0
+margin_bottom = -10.0
 grow_horizontal = 0
 rect_pivot_offset = Vector2( 8, 8 )
 custom_fonts/font = ExtResource( 7 )
@@ -286,10 +299,9 @@ __meta__ = {
 visible = false
 modulate = Color( 1, 0, 0, 0.784314 )
 light_mask = 0
-margin_left = 48.0
-margin_top = 446.0
-margin_right = 80.0
-margin_bottom = 468.0
+margin_top = 200.0
+margin_right = 32.0
+margin_bottom = 222.0
 rect_pivot_offset = Vector2( 8, 8 )
 custom_fonts/font = ExtResource( 7 )
 text = "0"

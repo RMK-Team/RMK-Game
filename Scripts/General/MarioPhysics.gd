@@ -37,15 +37,20 @@ onready var dead: bool = false
 onready var dead_hasJumped: bool = false
 onready var dead_gameover: bool = false
 onready var dead_counter: float = 0
+
 onready var appear_counter: float = 0
+onready var hurt_counter: float = 0
 onready var shield_star: bool = false
 onready var shield_counter: float = 0
 onready var star_kill_count: int = 0
 onready var launch_counter: float = 0
+
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
 
+var skid: bool = 0
+# For star music
 var faded: bool = false
 
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
@@ -364,25 +369,37 @@ func controls(delta) -> void:
   if not Input.is_action_pressed('mario_crouch') and is_on_floor() and not is_over_backdrop($TopDetector, false):
     crouch = false
 
-  if Input.is_action_pressed('mario_right') and ((crouch && !is_on_floor()) || !crouch):
+  if Input.is_action_pressed('mario_right') and not Input.is_action_pressed('mario_left') and ((crouch && !is_on_floor()) || !crouch):
+    $Sprite.flip_h = false
     if velocity.x > -10 and velocity.x < 10:
-      velocity.x = 20
+      velocity.x += 20
+      if skid:
+        skid = false
     elif velocity.x <= -10:
       velocity.x += 10 * Global.get_delta(delta)
     elif velocity.x < 87.5 and not Input.is_action_pressed('mario_fire'):
       velocity.x += 6.25 * Global.get_delta(delta)
     elif velocity.x < 175 and Input.is_action_pressed('mario_fire'):
       velocity.x += 6.25 * Global.get_delta(delta)
+    
+    if velocity.x > 10:
+      skid = false
 
-  if Input.is_action_pressed('mario_left') and ((crouch && !is_on_floor()) || !crouch):
+  if Input.is_action_pressed('mario_left') and not Input.is_action_pressed('mario_right') and ((crouch && !is_on_floor()) || !crouch):
+    $Sprite.flip_h = true
     if velocity.x > -10 and velocity.x < 10:
       velocity.x = -20
+      if skid:
+        skid = false
     elif velocity.x >= 10:
       velocity.x -= 10 * Global.get_delta(delta)
     elif velocity.x > -87.5 and not Input.is_action_pressed('mario_fire'):
       velocity.x -= 6.25 * Global.get_delta(delta)
     elif velocity.x > -175 and Input.is_action_pressed('mario_fire'):
       velocity.x -= 6.25 * Global.get_delta(delta)
+
+    if velocity.x < -10:
+      skid = false
 
   if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('do_action'):
@@ -411,15 +428,7 @@ func animate_default(delta) -> void:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
-
-  if velocity.x <= -4 * Global.get_delta(delta) and is_on_floor():
-    $Sprite.flip_h = true
-  if velocity.x >= 4 * Global.get_delta(delta) and is_on_floor():
-    $Sprite.flip_h = false
     
-#  if Global.state > 0 and not position_altered:
-#    $Sprite.position.y -= 14
-#    position_altered = true
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
     if appear_counter == 0 and not shield_star:
@@ -428,7 +437,6 @@ func animate_default(delta) -> void:
   if shield_counter < 0:
     shield_counter = 0
     $Sprite.visible = true
-#  $Sprite.offset.y = $Sprite.texture.get_size()
 
   if allow_custom_animation: return
 
@@ -443,6 +451,7 @@ func animate_default(delta) -> void:
       animate_sprite('Crouching')
     else:
       animate_sprite('Stopped')
+      crouch = false
     return
 
   if not is_on_floor() and not is_over_platform():
@@ -453,16 +462,26 @@ func animate_default(delta) -> void:
   elif abs(velocity.x) < 0.08 and is_on_floor():
     animate_sprite('Stopped')
 
-  if velocity.x <= -0.16 * Global.get_delta(delta):
-    if is_on_floor() or $Sprite.animation == 'Launching':
-      animate_sprite('Walking')
-
-  if velocity.x >= 0.16 * Global.get_delta(delta):
-    if is_on_floor() or $Sprite.animation == 'Launching':
-      animate_sprite('Walking')
-
   if $Sprite.animation == 'Walking':
     $Sprite.speed_scale = abs(velocity.x / 25) * 2.5 + 4
+  else:
+    $Sprite.speed_scale = 1
+
+  if !is_on_floor(): 
+    skid = false
+    return
+  
+  if velocity.x <= -100 and not $Sprite.flip_h:
+    $Sprite.speed_scale = 1
+    skid = true
+  elif velocity.x >= 100 and $Sprite.flip_h:
+    $Sprite.speed_scale = 1
+    skid = true
+
+  if velocity.x <= -0.16 * Global.get_delta(delta):
+    animate_sprite('Skid' if skid else 'Walking')
+  if velocity.x >= 0.16 * Global.get_delta(delta):
+    animate_sprite('Skid' if skid else 'Walking')
 
 func animate_swimming(delta) -> void:
   pass # TODO

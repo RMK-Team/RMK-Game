@@ -40,7 +40,7 @@ func _process(delta) -> void:
   if is_on_floor() and belongs != 1:
     velocity.y = -175
 
-  velocity.y += 12 * gravity_scale * Global.get_delta(delta)
+  velocity.y += 16 * gravity_scale * Global.get_delta(delta)
 
   if belongs != 1:
     velocity = move_and_slide(velocity, Vector2.UP)
