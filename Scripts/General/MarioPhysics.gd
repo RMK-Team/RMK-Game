@@ -219,13 +219,11 @@ func _process_alive(delta) -> void:
 
 func _process_dead(delta) -> void:
   if dead_counter == 0:
-    Global.state = 0
     animate_default(delta)
   
   var colDisabled
   if not colDisabled:
     $TopDetector/CollisionTop.disabled = true
-    $BottomDetector/CollisionBottom.disabled = true
     $Collision.disabled = true
     $CollisionBig.disabled = true
     $BottomDetector/CollisionBottom.disabled = true
@@ -236,16 +234,19 @@ func _process_dead(delta) -> void:
     colDisabled = true
 
   dead_counter += 1 * Global.get_delta(delta)
-  $Sprite.set_animation('Dead')
   velocity.x = 0
   
   velocity.y += 12.5 * Global.get_delta(delta)
 
   if dead_counter < 24:
     velocity.y = 0
+    $Sprite.set_animation('Death')
+    $Sprite.speed_scale = 1
   elif not dead_hasJumped:
     dead_hasJumped = true
     velocity.y = -275
+  else:
+    $Sprite.set_animation('DeathLoop')
     
   $Sprite.position += Vector2(0, velocity.y * delta)
 
@@ -254,6 +255,7 @@ func _process_dead(delta) -> void:
 
   if dead_counter > 180:
     if Global.lives > 0:
+      get_tree().paused = false
       Global._reset()
     elif not dead_gameover:
       MusicPlayer.get_node('Main').stream = gameover_music
@@ -429,7 +431,7 @@ func animate_default(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
     
-  if shield_counter > 0:
+  if shield_counter > 0 and hurt_counter == 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
     if appear_counter == 0 and not shield_star:
       $Sprite.visible = int(shield_counter / 2) % 2 == 0
@@ -438,6 +440,20 @@ func animate_default(delta) -> void:
     shield_counter = 0
     $Sprite.visible = true
 
+  if hurt_counter > 0:
+    if velocity.x < 0.08:
+      skid = false
+      $Sprite.speed_scale = 1
+      
+    hurt_counter -= 1.5001 * Global.get_delta(delta)
+    return
+  if hurt_counter < 0:
+    controls_enabled = true
+    $BottomDetector/CollisionBottom.disabled = false
+    $BottomDetector/CollisionBottom2.disabled = false
+    allow_custom_animation = false
+    hurt_counter = 0
+    
   if allow_custom_animation: return
 
   if launch_counter > 0:
@@ -572,7 +588,6 @@ func unkill() -> void:
   appear_counter = 0
   shield_counter = 0
   $TopDetector/CollisionTop.disabled = false
-  $BottomDetector/CollisionBottom.disabled = false
   $Sprite.position = Vector2.ZERO
   animate_sprite('Stopped')
 

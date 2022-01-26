@@ -20,6 +20,7 @@ var popup: CanvasLayer = null
 func _ready():
   if !Engine.editor_hint:
     Global.currlevel = self
+    Global.hp = Global.hp_persistent
     $WorldEnvironment.environment.dof_blur_near_enabled = false
     if not $Mario.custom_die_stream or Global.deaths == 0:
       Global.time = time

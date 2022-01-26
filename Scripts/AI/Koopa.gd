@@ -35,7 +35,7 @@ func _ai_process(delta: float) -> void:
       owner.frozen_sprite.position.y = -32
     return
   
-  if owner.is_on_wall(): #and ((owner.vars['is shell'] && owner.vars['stopped']) || !owner.vars['is shell']):
+  if owner.is_on_wall(): #and ((owner.vars['is shell'] && owner.vars['stopped']) || !owner.vars['is shell']):  ### this check is shit, need to remake it
     owner.turn()
 
   if shell_counter < 41:
@@ -61,7 +61,7 @@ func _ai_process(delta: float) -> void:
       else:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 25
   elif is_mario_collide('InsideDetector') and !owner.vars['stopped'] and shell_counter >= 31:
-    Global._ppd()
+    Global._ppd(1, int(clamp(Global.Mario.position.x - owner.position.x, 0, 1)))
     
   if is_mario_collide('InsideDetector'):
     if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 11:

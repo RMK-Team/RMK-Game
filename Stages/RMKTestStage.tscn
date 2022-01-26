@@ -59,7 +59,6 @@ powerup_scripts = {
 sections_scroll = false
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
-visible = false
 
 [node name="Coin" parent="." instance=ExtResource( 17 )]
 position = Vector2( 160, 120 )
@@ -163,6 +162,17 @@ vars = {
 
 [node name="Koopa" parent="." instance=ExtResource( 22 )]
 position = Vector2( 360, 192 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 125.0,
+"speed": 30.0,
+"stopped": false
+}
+
+[node name="Koopa3" parent="." instance=ExtResource( 22 )]
+position = Vector2( 984, 32 )
 vars = {
 "bounce": 9.0,
 "is shell": false,

@@ -14,11 +14,7 @@ func fade_in(audio_stream: Object, duration: float, from_vol: float = -80, to_vo
   tween_in.start()
   print('Fading in...')
 
-func _on_TweenOut_tween_completed(object, key):
+func _on_TweenOut_tween_completed(object, _key):
   object.stop()
   object.volume_db = 0
   print('Fade out complete')
-
-func _on_TweenOut_tween_step(object, key, elapsed, value):
-  #print(value)
-  pass

@@ -30,6 +30,7 @@ signal OnPlayerLoseLife                      # Called when the player dies
 signal OnScoreChange                         # Called when score gets changed
 signal OnLivesAdded                          # Called when a life gets added
 signal OnCoinCollected                       # Called when coins get collected
+signal OnPlayerHit                           # Called when the player gets hit
 
 var lives: int = 4                           # Player lives
 var time: int = 999                          # Time left
@@ -38,6 +39,7 @@ var coins: int = 0                           # Player coins
 var deaths: int = 0                          # Player deaths (for precision madness-like levels)
 var state: int = 1                           # Player powerup state
 var hp: int = 3                              # Health points
+var hp_persistent: int = 3
 
 var projectiles_count: int = 0               # Number of player's projectiles on screen
 
@@ -141,14 +143,26 @@ func _physics_process(delta: float) -> void:
   if projectiles_count < 0:
     projectiles_count = 0
   
-  if Input.is_action_pressed('debug_shift') and debug:
+      
+# Debug powerups
+func _input(ev):
+  if ev.is_action_pressed('ui_fullscreen'):
+    OS.window_fullscreen = !OS.window_fullscreen
+  
+  if !debug: return
+  if !Input.is_action_pressed('debug_shift'):
+    if ev is InputEventKey and ev.scancode >= 48 and ev.scancode <= 57 and !ev.echo and ev.pressed:
+      play_base_sound('DEBUG_Toggle')
+      state = ev.scancode - 49
+      Mario.appear_counter = 60
+  else:
   # Hotkey for restarting current level
-    if Input.is_action_just_pressed('debug_f2'):
+    if ev.is_action_pressed('debug_f2'):
       lives += 1
       _reset()
       
   # Toggle fly mode
-    if Input.is_action_just_pressed('debug_1'):
+    if ev.is_action_pressed('debug_1'):
       if Mario.dead_gameover: return
       Mario.get_node('Sprite').modulate.a = 0.5 * (1 + int(debug_fly))
       debug_fly = !debug_fly
@@ -159,29 +173,18 @@ func _physics_process(delta: float) -> void:
       play_base_sound('DEBUG_Toggle')
       
   # Toggle invisible mode
-    if Input.is_action_just_pressed('debug_2'):
+    if ev.is_action_pressed('debug_2'):
       debug_inv = !debug_inv
       if debug_inv and debug_fly:
         debug_fly = false
       play_base_sound('DEBUG_Toggle')
     
-    if Input.is_action_just_pressed('debug_straylist'):
+    if ev.is_action_pressed('debug_straylist'):
       if Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) > 0:
         print('[CE OUTPUT]: --- STRAY NODES LIST ---')
         print_stray_nodes()
       else:
         print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
-      
-# Debug powerups
-func _input(ev):
-  if !Input.is_action_pressed('debug_shift') and debug:
-    if ev is InputEventKey and ev.scancode >= 48 and ev.scancode <= 57 and !ev.echo and ev.pressed:
-      play_base_sound('DEBUG_Toggle')
-      state = ev.scancode - 49
-      Mario.appear_counter = 60
-  
-  if ev.is_action_pressed('ui_fullscreen'):
-    OS.window_fullscreen = !OS.window_fullscreen
       
 # fix physics fps issues
 func _process(delta: float):
@@ -227,22 +230,34 @@ func add_coins(coins: int) -> void:
 func play_base_sound(sound: String) -> void:
   Mario.get_node('BaseSounds').get_node(sound).play()
 
-func _ppd() -> void: # Player Powerdown
+func _ppd(damage: int = 1, direction_right: bool = false) -> void: # Player Powerdown
   if Mario.shield_counter > 0 or debug_inv or debug_fly:
     return
+  
+  hp -= damage
+  emit_signal('OnPlayerHit')
 
-  if state == 0:
-    _pll()
+  if hp <= 0:
+    _pll(true if hp < 0 else false)
   else:
     play_base_sound('MAIN_Shrink')
-    if state > 1:
-      state = 1
+    if direction_right:
+      Mario.velocity.x = 100
+      Mario.animate_sprite('HurtF' if Mario.get_node('Sprite').flip_h else 'HurtB')
     else:
-      state = 0
-    Mario.appear_counter = 60
+      Mario.velocity.x = -100
+      Mario.animate_sprite('HurtF' if !Mario.get_node('Sprite').flip_h else 'HurtB')
+    #else:
+    #  push_warning('wtf? zero difference on hit, could not calculate where to push mario')
+    Mario.velocity.y = -200
+    Mario.get_node('BottomDetector/CollisionBottom').disabled = true
+    Mario.get_node('BottomDetector/CollisionBottom2').disabled = true
+    Mario.allow_custom_animation = true
+    Mario.controls_enabled = false
+    Mario.hurt_counter = 51
     Mario.shield_counter = 100
 
-func _pll() -> void: # Player Death
+func _pll(fatal: bool = false) -> void: # Player Death
   if Mario.dead or debug_inv or debug_fly:
     return
   emit_signal('OnPlayerLoseLife')
@@ -257,6 +272,7 @@ func _pll() -> void: # Player Death
     dieMusPlayer.play()
     
   Mario.dead = true
+  get_tree().paused = true
 
 func _delay() -> void:
   if !is_instance_valid(Mario):
@@ -265,7 +281,7 @@ func _delay() -> void:
     emit_signal('TimeTick')
     time -= 1
     if time == -1:
-      _pll()
+      _pll(false)
 
 # Generic Functions
 

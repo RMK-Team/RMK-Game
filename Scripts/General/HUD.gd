@@ -23,6 +23,7 @@ func _ready() -> void:
   Global.connect('TimeTick', self, '_time')
 # warning-ignore:return_value_discarded
   Global.connect('OnPlayerLoseLife', self, '_life_lose')
+  Global.connect('OnPlayerHit', self, '_hit')
   $GameoverSprite.visible = false
     
 func _process(_delta: float) -> void:
@@ -41,6 +42,9 @@ func _time() -> void:
 
 func _life_lose() -> void:
   print('Died!')
+
+func _hit() -> void:
+  $HP.text = str(Global.hp)
 
 var AnimPlayed : int
 
