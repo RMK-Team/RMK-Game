@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex"
+path="res://.import/MinimapBorder.png-6c3659a0dcd24f21c3295c104ebc254e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/HUD/gameover.png"
-dest_files=[ "res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex" ]
+source_file="res://GFX/HUD/MinimapBorder.png"
+dest_files=[ "res://.import/MinimapBorder.png-6c3659a0dcd24f21c3295c104ebc254e.stex" ]
 
 [params]
 

@@ -17,14 +17,12 @@ func _ready() -> void:
   AnimPlayed = 0
   $Coins.text = str(Global.coins)
   $Score.text = str(Global.score)
-  $Lives.text = str(Global.lives)
   $DebugOrphaneNodes.visible = Global.debug
 # warning-ignore:return_value_discarded
   Global.connect('TimeTick', self, '_time')
 # warning-ignore:return_value_discarded
   Global.connect('OnPlayerLoseLife', self, '_life_lose')
   Global.connect('OnPlayerHit', self, '_hit')
-  $GameoverSprite.visible = false
     
 func _process(_delta: float) -> void:
   if Global.debug:
@@ -34,11 +32,11 @@ func _process(_delta: float) -> void:
     $DebugOrphaneNodes.visible = true if straycount > 0 else false
     $DebugOrphaneNodes.text = str(straycount)
 
-func _time() -> void:
-  if Global.time == 99 and not Global.level_ended and visible:
-    $TimeSprite.playing = true
-    $TimeoutSound.play()
-  $Time.text = str(abs(Global.time))
+#func _time() -> void:
+#  if Global.time == 99 and not Global.level_ended and visible:
+#    $TimeSprite.playing = true
+#    $TimeoutSound.play()
+#  $Time.text = str(abs(Global.time))
 
 func _life_lose() -> void:
   print('Died!')

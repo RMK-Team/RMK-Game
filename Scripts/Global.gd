@@ -55,8 +55,6 @@ var currlevel: Node2D
 
 var levelID: int = 0
 
-onready var timer: Timer = Timer.new()       # Create a new timer for delay
-
 static func get_delta(delta) -> float:       # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
@@ -66,8 +64,6 @@ static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
 func _ready() -> void:
   if debug:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
-  timer.wait_time = 1.45
-  add_child(timer)
   
   toSaveInfo = JSON.parse(loadInfo()).result # Loading settings
     
@@ -137,9 +133,6 @@ func _reset() -> void:   # Level Restart
 
 # warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
-  if timer.time_left <= 1 && time != -1: # Wait for delaying
-    _delay()
-    timer.start()
   if projectiles_count < 0:
     projectiles_count = 0
   
