@@ -166,7 +166,7 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"shell speed": 125.0,
+"shell speed": 150.0,
 "speed": 30.0,
 "stopped": false
 }
@@ -177,7 +177,7 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"shell speed": 125.0,
+"shell speed": 150.0,
 "speed": 30.0,
 "stopped": false
 }
@@ -188,7 +188,7 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"shell speed": 125.0,
+"shell speed": 150.0,
 "speed": 30.0,
 "stopped": false
 }

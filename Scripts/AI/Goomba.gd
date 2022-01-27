@@ -28,7 +28,7 @@ func _ai_process(delta:float) -> void:
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 25
   elif on_mario_collide('InsideDetector') and !owner.frozen and inv_counter >= 11:
-    Global._ppd()
+    Global._ppd(1, int(clamp(Global.Mario.position.x - owner.position.x, 0, 1)))
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
   for i in range(len(g_overlaps)):

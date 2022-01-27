@@ -178,6 +178,10 @@ func _input(ev):
         print_stray_nodes()
       else:
         print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
+    
+    if ev.is_action_pressed('debug_op_health'):
+      hp = 2147483647
+      print('shh...')
       
 # fix physics fps issues
 func _process(delta: float):
@@ -243,8 +247,8 @@ func _ppd(damage: int = 1, direction_right: bool = false) -> void: # Player Powe
     #else:
     #  push_warning('wtf? zero difference on hit, could not calculate where to push mario')
     Mario.velocity.y = -200
-    Mario.get_node('BottomDetector/CollisionBottom').disabled = true
-    Mario.get_node('BottomDetector/CollisionBottom2').disabled = true
+    Mario.get_node('BottomDetector/CollisionBottom').set_deferred("disabled", true)
+    Mario.get_node('BottomDetector/CollisionBottom2').set_deferred("disabled", true)
     Mario.allow_custom_animation = true
     Mario.controls_enabled = false
     Mario.hurt_counter = 51

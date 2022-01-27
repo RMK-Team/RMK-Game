@@ -379,9 +379,9 @@ func controls(delta) -> void:
         skid = false
     elif velocity.x <= -10:
       velocity.x += 10 * Global.get_delta(delta)
-    elif velocity.x < 87.5 and not Input.is_action_pressed('mario_fire'):
+    elif velocity.x < 87.5 and (not Input.is_action_pressed('mario_fire') or crouch):
       velocity.x += 6.25 * Global.get_delta(delta)
-    elif velocity.x < 175 and Input.is_action_pressed('mario_fire'):
+    elif velocity.x < 175 and Input.is_action_pressed('mario_fire') and not crouch:
       velocity.x += 6.25 * Global.get_delta(delta)
     
     if velocity.x > 10:
@@ -395,9 +395,9 @@ func controls(delta) -> void:
         skid = false
     elif velocity.x >= 10:
       velocity.x -= 10 * Global.get_delta(delta)
-    elif velocity.x > -87.5 and not Input.is_action_pressed('mario_fire'):
+    elif velocity.x > -87.5 and (not Input.is_action_pressed('mario_fire') or crouch):
       velocity.x -= 6.25 * Global.get_delta(delta)
-    elif velocity.x > -175 and Input.is_action_pressed('mario_fire'):
+    elif velocity.x > -175 and Input.is_action_pressed('mario_fire') and not crouch:
       velocity.x -= 6.25 * Global.get_delta(delta)
 
     if velocity.x < -10:

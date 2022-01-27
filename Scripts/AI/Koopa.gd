@@ -21,7 +21,7 @@ func _ai_process(delta: float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if !owner.alive:
-    owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
+    owner.get_node(owner.vars['kill zone']).get_child(0).set_deferred("disabled", false)
     return
   
   if !owner.frozen:
@@ -29,8 +29,8 @@ func _ai_process(delta: float) -> void:
   else:
     owner.velocity.x = 0
     if !owner.vars['is shell']:
-      owner.get_node('Collision2').disabled = false
-      owner.get_node('Collision').disabled = true
+      owner.get_node('Collision2').set_deferred("disabled", false)
+      owner.get_node('Collision').set_deferred("disabled", true)
       owner.frozen_sprite.animation = 'medium'
       owner.frozen_sprite.position.y = -32
     return
@@ -61,6 +61,7 @@ func _ai_process(delta: float) -> void:
       else:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 25
   elif is_mario_collide('InsideDetector') and !owner.vars['stopped'] and shell_counter >= 31:
+    if Global.Mario.shield_counter == 0: print(Global.Mario.position.x - owner.position.x)
     Global._ppd(1, int(clamp(Global.Mario.position.x - owner.position.x, 0, 1)))
     
   if is_mario_collide('InsideDetector'):
@@ -75,7 +76,7 @@ func _ai_process(delta: float) -> void:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func to_stopped_shell() -> void:
-  owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  owner.get_node(owner.vars['kill zone']).get_child(0).set_deferred("disabled", false)
   shell_counter = 0
   owner.vars['is shell'] = true
   score_mp = 0
